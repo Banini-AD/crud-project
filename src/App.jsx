@@ -17,10 +17,15 @@ function App() {
     addTodo,
     editTask,
     deleteTodo,
+    addCategory,
+    todoCategory,
+    isCategoryInput,
+    setCategoryData,
+    categoryData,
   } = useTodo();
   return (
     <div className="m-5">
-      <h1 className="text-6xl font-black">Hi</h1>
+      <h1 className="text-6xl font-black mb-3">Hi</h1>
 
       <TodoSearch
         searchResult={searchResult}
@@ -34,6 +39,7 @@ function App() {
         todoList={todoList}
         deleteTodo={deleteTodo}
         editTask={editTask}
+        todoCategory={todoCategory}
       />
 
       <button className="border p-3 bg-blue-600 mb-4">Add New Task</button>
@@ -41,6 +47,11 @@ function App() {
         addTodo={addTodo}
         handleChange={handleChange}
         formData={formData}
+        addCategory={addCategory}
+        isCategoryInput={isCategoryInput}
+        todoCategory={todoCategory}
+        setCategoryData={setCategoryData}
+        categoryData={categoryData}
       />
     </div>
   );

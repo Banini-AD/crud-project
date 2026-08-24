@@ -7,6 +7,15 @@ function useTodo() {
     return savedTodoList ? savedTodoList : [];
   });
 
+  const [ categoryData, setCategoryData ] = useState("")
+
+   const [isCategoryInput, setIsCategoryInput] = useState(false);
+
+  const [todoCategory, setTodoCategory] = useState(()=>{
+    const savedTodoCategory = JSON.parse(localStorage.getItem("todo-category"));
+    return savedTodoCategory ? savedTodoCategory : ["Personal", "Work"];
+    })
+
   const [targetID, setTargetID] = useState(null);
 
   const [emptySearchInput, setEmptySearchInput] = useState(true);
@@ -15,15 +24,39 @@ function useTodo() {
   const [searchResult, setSearchResult] = useState([]);
 
   // Initialize form state to track the input field value
-  const [formData, setFormData] = useState({ title: " " });
+  const [formData, setFormData] = useState({
+    title: "",
+    category: "No Category",
+    date: "",
+    //subTasks: [],
+  });
 
   // Updates form state dynamically when the user types into the input field
   function handleChange(e) {
     const { name, value } = e.target;
+
+    if (name === "category") {
+      if (value === "add_new_option") {
+        setIsCategoryInput(true);
+        return;
+      }
+      if (value === undefined) {
+        return value === "No Category"
+      }
+    }
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value, // Updates the specific field (title) using computed property names
+      [name]: value.toString(), // Updates the specific field (title) using computed property names
     }));
+  }
+
+  function addCategory (e){
+    e.preventDefault();
+    setTodoCategory((prevData) => ([
+      ...prevData, categoryData
+    ]))
+    setCategoryData("")
+    setIsCategoryInput(false);
   }
 
   function searchTodo(e) {
@@ -61,12 +94,17 @@ function useTodo() {
     }
 
     setTargetID(null);
-    setFormData({ title: "" }); // Resets the input field to empty
+    setFormData({
+    title: "",
+    category: "",
+    date: "",
+    //subTasks: [],
+  }); // Resets the input field to empty
   }
 
   function editTask(tsk) {
     setTargetID(tsk.id);
-    setFormData({ title: tsk.title });
+    setFormData({ title: tsk.title, category: tsk.category, date: tsk.date });
   }
 
   // Deletes a task from the todoList array
@@ -79,6 +117,9 @@ function useTodo() {
   useEffect(() => {
     localStorage.setItem("todo-list", JSON.stringify(todoList));
   }, [todoList]);
+  useEffect(() => {
+    localStorage.setItem("todo-category", JSON.stringify(todoCategory));
+  }, [todoCategory]);
 
   return {
     todoList,
@@ -93,6 +134,11 @@ function useTodo() {
     addTodo,
     editTask,
     deleteTodo,
+    addCategory,
+    todoCategory,
+    isCategoryInput,
+    setCategoryData,
+    categoryData
   };
 }
 

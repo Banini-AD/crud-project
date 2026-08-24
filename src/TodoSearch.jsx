@@ -1,15 +1,24 @@
-function TodoSearch({searchResult, searchTodo, setIsSearching, isSearching, emptySearchInput}) {
+function TodoSearch({
+  searchResult,
+  searchTodo,
+  setIsSearching,
+  isSearching,
+  emptySearchInput,
+}) {
   return (
     <div>
       <form
         role="search"
         onChange={searchTodo}
-        onMouseEnter={() => {
+        onFocus={() => {
           setIsSearching(true);
         }}
-        onMouseLeave={() => {
-          setIsSearching(false);
-          searchResult([]);
+        onBlur={(e) => {
+          // 2. Prevent closing if the user clicked an item inside the form
+          if (!e.currentTarget.contains(e.relatedTarget)) {
+            setIsSearching(false);
+            searchResult([]);
+          }
         }}
       >
         <input
@@ -19,8 +28,8 @@ function TodoSearch({searchResult, searchTodo, setIsSearching, isSearching, empt
           placeholder="Search through your tasks"
         />
       </form>
-      
-          {isSearching && (
+
+      {isSearching && (
         <ul className=" bg-gray-400">
           {searchResult.length > 0 ? (
             searchResult.map((result, index) => (
@@ -35,9 +44,8 @@ function TodoSearch({searchResult, searchTodo, setIsSearching, isSearching, empt
           )}
         </ul>
       )}
-
     </div>
-  )
+  );
 }
 
-export default TodoSearch
+export default TodoSearch;
