@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 function useTodo() {
   // Initialize todoList state with data from localStorage if it exists, otherwise use an empty array
@@ -30,6 +30,10 @@ function useTodo() {
     date: "",
     //subTasks: [],
   });
+
+  const [toastMessage, setToastMessage] = useState("");
+  const timeoutRef = useRef(null)
+  const deletedTaskRef = useRef(null)
 
   // Updates form state dynamically when the user types into the input field
   function handleChange(e) {
@@ -72,7 +76,7 @@ function useTodo() {
 
     e.target.value.length === 0
       ? (setSearchResult([]), setEmptySearchInput(true))
-      : setEmptySearchInput(false);
+      : (setEmptySearchInput(false));
   }
 
   // Adds a new task to the todoList array and resets the input field
@@ -109,9 +113,47 @@ function useTodo() {
 
   // Deletes a task from the todoList array
   function deleteTodo(tsk) {
+    const taskToDelete = todoList.find((task) => task.id === tsk.id);
+
+    if(timeoutRef.current) clearTimeout(timeoutRef.current);
+
+    deletedTaskRef.current = taskToDelete;
+
+    console.log(deletedTaskRef)
+    
     const updatedTodoList = todoList.filter((item) => item.id !== tsk.id); // returns a new array without the task with that id
     setTodoList(updatedTodoList); // Assigns the new array to the todoList.
+
+    //console.log(taskToDelete.title)
+
+    const message = `Deleted "${taskToDelete.title}"`;
+
+    //console.log(message);
+
+    setToastMessage(message);
+
+    //console.log(toastMessage)
+    timeoutRef.current = setTimeout(() => {
+      deletedTaskRef.current = null;
+      setToastMessage("");
+    }, 10000)
   }
+
+  function handleUndo (){
+    if (!deletedTaskRef.current) return;
+
+    const retrievedTsk = deletedTaskRef.current
+    console.log(retrievedTsk)
+
+      // Put the task back into the state
+    setTodoList(prevTasks => [...prevTasks, retrievedTsk]);
+
+    // Clear the permanent deletion timer
+    clearTimeout(timeoutRef.current);
+    // Reset temporary variables
+    deletedTaskRef.current = null;
+    setToastMessage("");
+  };
 
   // Syncs the todoList state to localStorage every time the todoList changes
   useEffect(() => {
@@ -126,14 +168,16 @@ function useTodo() {
     formData,
     isSearching,
     searchResult,
+    setSearchResult,
     emptySearchInput,
     setIsSearching,
-    setSearchResult,
     handleChange,
     searchTodo,
     addTodo,
     editTask,
     deleteTodo,
+    handleUndo,
+    toastMessage,
     addCategory,
     todoCategory,
     isCategoryInput,

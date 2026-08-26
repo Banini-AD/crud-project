@@ -1,5 +1,6 @@
 function TodoSearch({
   searchResult,
+  setSearchResult,
   searchTodo,
   setIsSearching,
   isSearching,
@@ -17,7 +18,7 @@ function TodoSearch({
           // 2. Prevent closing if the user clicked an item inside the form
           if (!e.currentTarget.contains(e.relatedTarget)) {
             setIsSearching(false);
-            searchResult([]);
+            setSearchResult([]);
           }
         }}
       >
@@ -29,11 +30,11 @@ function TodoSearch({
         />
       </form>
 
-      {isSearching && (
+      {/*isSearching && (
         <ul className=" bg-gray-400">
           {searchResult.length > 0 ? (
             searchResult.map((result, index) => (
-              <li key={index}>{result.title}</li>
+              <li key={index} onClick={()=>{console.log(result.title)}}>{result.title}</li>
             ))
           ) : (
             <li className="">
@@ -43,7 +44,7 @@ function TodoSearch({
             </li>
           )}
         </ul>
-      )}
+      )*/}
     </div>
   );
 }

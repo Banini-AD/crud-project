@@ -1,9 +1,11 @@
 import { useState } from "react";
-function TodoItem({ todoList, deleteTodo, editTask, todoCategory }) {
+function TodoItem({ todoList, deleteTodo,handleUndo, toastMessage, editTask, todoCategory, searchResult, isSearching , emptySearchInput}) {
   const [selectedCat , setSelectedCat] = useState("all")
   //const [sortedTodo, setSortedTodo] = useState(todoList);
+  
+  const sortedTodo = isSearching && !emptySearchInput ? (searchResult): (selectedCat === "all" ? todoList : todoList.filter(todo => todo.category === selectedCat))
 
-  const sortedTodo = selectedCat === "all" ? todoList : todoList.filter(todo => todo.category === selectedCat)
+  console.log(toastMessage)
 
 
   /*function sortTodos(title) {
@@ -45,17 +47,19 @@ function TodoItem({ todoList, deleteTodo, editTask, todoCategory }) {
           <h1 className="text-2xl mb-3 ">
             <span className="text-6xl mb-3">😢</span>
             <br />
-            No todos added yet
+            {isSearching && !emptySearchInput ? ('No todos match your search'): ("No todos added yet")}
+          
           </h1>
-          <button className="mb-3">Add Todo</button>
+          {(!isSearching) && (<button className="mb-3">Add Todo</button>)}
+         
         </>
       )}
 
       {sortedTodo.length > 0 &&
         sortedTodo.map((tsk, index) => (
           <div className="border p-4 flex gap-1 m-4" key={index}>
-            <h2 className="text-2xl font-bold">{tsk.title}</h2>
-            <p className="">{tsk.category}</p>
+           <h2 className="text-2xl font-bold">{tsk.title}</h2>
+             <p className="">{tsk.category}</p>
             <p className="">{tsk.date}</p>
             <button
               className="border p-2 bg-red-600"
@@ -75,6 +79,15 @@ function TodoItem({ todoList, deleteTodo, editTask, todoCategory }) {
             </button>
           </div>
         ))}
+
+        
+        {toastMessage && <div className="">
+          <span>{toastMessage || "Checking"}</span> <br/>
+          <button className="p-4 bg-amber-400 mb-4 " onClick={handleUndo}>Undo Delete</button>
+        </div>}
+        
+        
+        
     </div>
   );
 }

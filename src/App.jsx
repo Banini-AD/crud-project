@@ -1,7 +1,7 @@
 import useTodo from "./hooks/useTodo";
 import TodoItem from "./components/TodoItem";
-import TodoForm from "./TodoForm";
-import TodoSearch from "./TodoSearch";
+import TodoForm from "./components/TodoForm";
+import TodoSearch from "./components/TodoSearch";
 
 function App() {
   const {
@@ -9,14 +9,16 @@ function App() {
     formData,
     isSearching,
     searchResult,
+    setSearchResult,
     emptySearchInput,
     setIsSearching,
-    //setSearchResult,
     handleChange,
     searchTodo,
     addTodo,
     editTask,
     deleteTodo,
+    handleUndo,
+    toastMessage,
     addCategory,
     todoCategory,
     isCategoryInput,
@@ -33,13 +35,19 @@ function App() {
         setIsSearching={setIsSearching}
         isSearching={isSearching}
         emptySearchInput={emptySearchInput}
+        setSearchResult={setSearchResult}
       />
 
       <TodoItem
         todoList={todoList}
         deleteTodo={deleteTodo}
+        handleUndo={handleUndo}
         editTask={editTask}
+        toastMessage={toastMessage}
         todoCategory={todoCategory}
+        searchResult={searchResult}
+        isSearching={isSearching}
+        emptySearchInput={emptySearchInput}
       />
 
       <button className="border p-3 bg-blue-600 mb-4">Add New Task</button>
