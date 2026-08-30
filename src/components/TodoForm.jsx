@@ -1,3 +1,4 @@
+//import { useState } from "react";
 function TodoForm({
   addTodo,
   handleChange,
@@ -8,6 +9,8 @@ function TodoForm({
   setCategoryData,
   categoryData,
 }) {
+
+
   return (
     <div>
       <form className="" onSubmit={addTodo}>
@@ -35,28 +38,37 @@ function TodoForm({
           <option value="add_new_option">+ Create New</option>
         </select>
 
-        {
-          /*
+        <textarea name="description" value={formData.description} id="" className="border" placeholder="Add task description..." onChange={handleChange}></textarea>
+
+        {/*
 
         <input type="radio" name="date" id=""  value="1"/><label htmlFor="">Today</label>
         <input type="radio" name="date" id=""  value="2"/><label htmlFor="">Tomorrow</label>
         <input type="radio" name="date" id=""  value="3"/><label htmlFor="">Set Date</label>
-        */
-          <input
-            className=" p-2 border"
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            id=""
-          />
-          /*
-        <input className=" p-2 border" type="date" name="endDate" value={formData.startDate}  onChange={handleChange} id="" />
+        */}
+        <input
+          className=" p-2 border"
+          type="date"
+          name="startDate"
+          value={formData.startDate}
+          onChange={handleChange}
+          id=""
+        />
 
-        <button className="text-amber-800 font-bold">Add Subtask</button>
+        <input
+          className=" p-2 border"
+          type="date"
+          name="dueDate"
+          value={formData.dueDate}
+          onChange={handleChange}
+          id=""
+        />
+        
+        {/*<button className="text-amber-800 font-bold">Add Subtask</button>
         <input type="text" name="subTask" value={formData.subTask} className=" p-2 border"/>
-*/
-        }
+        <button className="border p-2 bg-yellow-600">Submit</button>*/}
+       
+
         <button type="submit" className="border p-2 bg-yellow-600">
           Add Task
         </button>

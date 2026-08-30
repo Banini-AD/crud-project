@@ -1,7 +1,8 @@
 import useTodo from "./hooks/useTodo";
 import TodoItem from "./components/TodoItem";
 import TodoForm from "./components/TodoForm";
-import TodoSearch from "./components/TodoSearch";
+import Nav from "./components/Nav";
+import SideNav from "./components/SideNav";
 
 function App() {
   const {
@@ -25,18 +26,20 @@ function App() {
     setCategoryData,
     categoryData,
   } = useTodo();
-  return (
-    <div className="m-5">
-      <h1 className="text-6xl font-black mb-3">Hi</h1>
 
-      <TodoSearch
-        searchResult={searchResult}
+  return (
+    <section className="">
+     
+     <section className="flex">
+      <SideNav/>
+
+      <Nav
         searchTodo={searchTodo}
         setIsSearching={setIsSearching}
-        isSearching={isSearching}
-        emptySearchInput={emptySearchInput}
         setSearchResult={setSearchResult}
       />
+     </section>
+     
 
       <TodoItem
         todoList={todoList}
@@ -61,7 +64,7 @@ function App() {
         setCategoryData={setCategoryData}
         categoryData={categoryData}
       />
-    </div>
+    </section>
   );
 }
 

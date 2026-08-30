@@ -1,13 +1,10 @@
 function TodoSearch({
-  searchResult,
   setSearchResult,
   searchTodo,
   setIsSearching,
-  isSearching,
-  emptySearchInput,
 }) {
   return (
-    <div>
+    <div >
       <form
         role="search"
         onChange={searchTodo}

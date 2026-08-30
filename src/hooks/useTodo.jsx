@@ -27,7 +27,9 @@ function useTodo() {
   const [formData, setFormData] = useState({
     title: "",
     category: "No Category",
-    date: "",
+    startDate: "",
+    dueDate: "",
+    description:""
     //subTasks: [],
   });
 
@@ -65,7 +67,6 @@ function useTodo() {
 
   function searchTodo(e) {
     const query = e.target.value.toLowerCase().trim();
-    console.log(query);
 
     setSearchResult(() => {
       const result = todoList.filter((task) =>
@@ -101,7 +102,9 @@ function useTodo() {
     setFormData({
     title: "",
     category: "",
-    date: "",
+    startDate: "",
+    dueDate: "",
+    description: ""
     //subTasks: [],
   }); // Resets the input field to empty
   }
@@ -118,25 +121,18 @@ function useTodo() {
     if(timeoutRef.current) clearTimeout(timeoutRef.current);
 
     deletedTaskRef.current = taskToDelete;
-
-    console.log(deletedTaskRef)
     
     const updatedTodoList = todoList.filter((item) => item.id !== tsk.id); // returns a new array without the task with that id
     setTodoList(updatedTodoList); // Assigns the new array to the todoList.
 
-    //console.log(taskToDelete.title)
-
     const message = `Deleted "${taskToDelete.title}"`;
-
-    //console.log(message);
 
     setToastMessage(message);
 
-    //console.log(toastMessage)
     timeoutRef.current = setTimeout(() => {
       deletedTaskRef.current = null;
       setToastMessage("");
-    }, 10000)
+    }, 5000)
   }
 
   function handleUndo (){

@@ -59,8 +59,10 @@ function TodoItem({ todoList, deleteTodo,handleUndo, toastMessage, editTask, tod
         sortedTodo.map((tsk, index) => (
           <div className="border p-4 flex gap-1 m-4" key={index}>
            <h2 className="text-2xl font-bold">{tsk.title}</h2>
+           <p className="">{tsk.description}</p>
              <p className="">{tsk.category}</p>
-            <p className="">{tsk.date}</p>
+            <p className="">{tsk.startDate}</p>
+            <p className="">{tsk.dueDate}</p>
             <button
               className="border p-2 bg-red-600"
               onClick={() => {
