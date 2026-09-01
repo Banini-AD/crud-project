@@ -1,8 +1,9 @@
 import useTodo from "./hooks/useTodo";
-import TodoItem from "./components/TodoItem";
 import TodoForm from "./components/TodoForm";
-import Nav from "./components/Nav";
+import { useEffect, useState } from "react";
+//import Nav from "./components/Nav";
 import SideNav from "./components/SideNav";
+import Page from "./components/Page";
 
 function App() {
   const {
@@ -25,23 +26,23 @@ function App() {
     isCategoryInput,
     setCategoryData,
     categoryData,
+    isOpen,
+    setIsOpen,
+    isEditing,
+    setIsEditing,
   } = useTodo();
 
+  const [openSideNav, setOpenSideNav] = useState(false);
+
+  useEffect(() => {
+    console.log(openSideNav)
+  }, [openSideNav]);
+
   return (
-    <section className="">
-     
-     <section className="flex">
-      <SideNav/>
+    <section className="flex relative min-h-screen bg-brand-bg">
+      <SideNav setIsOpen={setIsOpen} openSideNav={openSideNav} setOpenSideNav={setOpenSideNav} />
 
-      <Nav
-        searchTodo={searchTodo}
-        setIsSearching={setIsSearching}
-        setSearchResult={setSearchResult}
-      />
-     </section>
-     
-
-      <TodoItem
+      <Page
         todoList={todoList}
         deleteTodo={deleteTodo}
         handleUndo={handleUndo}
@@ -51,19 +52,27 @@ function App() {
         searchResult={searchResult}
         isSearching={isSearching}
         emptySearchInput={emptySearchInput}
+        searchTodo={searchTodo}
+        setIsSearching={setIsSearching}
+        setSearchResult={setSearchResult}
+        setIsOpen={setIsOpen}
+        setOpenSideNav={setOpenSideNav}
       />
 
-      <button className="border p-3 bg-blue-600 mb-4">Add New Task</button>
-      <TodoForm
-        addTodo={addTodo}
-        handleChange={handleChange}
-        formData={formData}
-        addCategory={addCategory}
-        isCategoryInput={isCategoryInput}
-        todoCategory={todoCategory}
-        setCategoryData={setCategoryData}
-        categoryData={categoryData}
-      />
+      {isOpen && (
+        <TodoForm
+          addTodo={addTodo}
+          handleChange={handleChange}
+          formData={formData}
+          addCategory={addCategory}
+          isCategoryInput={isCategoryInput}
+          todoCategory={todoCategory}
+          setCategoryData={setCategoryData}
+          categoryData={categoryData}
+          setIsOpen={setIsOpen}
+          isEditing={isEditing}
+        />
+      )}
     </section>
   );
 }

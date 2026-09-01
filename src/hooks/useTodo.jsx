@@ -7,14 +7,14 @@ function useTodo() {
     return savedTodoList ? savedTodoList : [];
   });
 
-  const [ categoryData, setCategoryData ] = useState("")
+  const [categoryData, setCategoryData] = useState("");
 
-   const [isCategoryInput, setIsCategoryInput] = useState(false);
+  const [isCategoryInput, setIsCategoryInput] = useState(false);
 
-  const [todoCategory, setTodoCategory] = useState(()=>{
+  const [todoCategory, setTodoCategory] = useState(() => {
     const savedTodoCategory = JSON.parse(localStorage.getItem("todo-category"));
     return savedTodoCategory ? savedTodoCategory : ["Personal", "Work"];
-    })
+  });
 
   const [targetID, setTargetID] = useState(null);
 
@@ -29,13 +29,16 @@ function useTodo() {
     category: "No Category",
     startDate: "",
     dueDate: "",
-    description:""
+    description: "",
     //subTasks: [],
   });
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
   const [toastMessage, setToastMessage] = useState("");
-  const timeoutRef = useRef(null)
-  const deletedTaskRef = useRef(null)
+  const timeoutRef = useRef(null);
+  const deletedTaskRef = useRef(null);
 
   // Updates form state dynamically when the user types into the input field
   function handleChange(e) {
@@ -47,7 +50,7 @@ function useTodo() {
         return;
       }
       if (value === undefined) {
-        return value === "No Category"
+        return value === "No Category";
       }
     }
     setFormData((prevData) => ({
@@ -56,12 +59,10 @@ function useTodo() {
     }));
   }
 
-  function addCategory (e){
+  function addCategory(e) {
     e.preventDefault();
-    setTodoCategory((prevData) => ([
-      ...prevData, categoryData
-    ]))
-    setCategoryData("")
+    setTodoCategory((prevData) => [...prevData, categoryData]);
+    setCategoryData("");
     setIsCategoryInput(false);
   }
 
@@ -77,7 +78,7 @@ function useTodo() {
 
     e.target.value.length === 0
       ? (setSearchResult([]), setEmptySearchInput(true))
-      : (setEmptySearchInput(false));
+      : setEmptySearchInput(false);
   }
 
   // Adds a new task to the todoList array and resets the input field
@@ -98,30 +99,35 @@ function useTodo() {
       );
     }
 
+    setIsOpen(false);
+    setIsEditing(false);
+
     setTargetID(null);
     setFormData({
-    title: "",
-    category: "",
-    startDate: "",
-    dueDate: "",
-    description: ""
-    //subTasks: [],
-  }); // Resets the input field to empty
+      title: "",
+      category: "",
+      startDate: "",
+      dueDate: "",
+      description: "",
+      //subTasks: [],
+    }); // Resets the input field to empty
   }
 
   function editTask(tsk) {
+    setIsEditing(true);
+    setIsOpen(true);
     setTargetID(tsk.id);
-    setFormData({ title: tsk.title, category: tsk.category, date: tsk.date });
+    setFormData({ title: tsk.title, category: tsk.category, startDate: tsk.startDate, dueDate: tsk.dueDate, description: tsk.description });
   }
 
   // Deletes a task from the todoList array
   function deleteTodo(tsk) {
     const taskToDelete = todoList.find((task) => task.id === tsk.id);
 
-    if(timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
     deletedTaskRef.current = taskToDelete;
-    
+
     const updatedTodoList = todoList.filter((item) => item.id !== tsk.id); // returns a new array without the task with that id
     setTodoList(updatedTodoList); // Assigns the new array to the todoList.
 
@@ -132,24 +138,23 @@ function useTodo() {
     timeoutRef.current = setTimeout(() => {
       deletedTaskRef.current = null;
       setToastMessage("");
-    }, 5000)
+    }, 5000);
   }
 
-  function handleUndo (){
+  function handleUndo() {
     if (!deletedTaskRef.current) return;
 
-    const retrievedTsk = deletedTaskRef.current
-    console.log(retrievedTsk)
+    const retrievedTsk = deletedTaskRef.current;
 
-      // Put the task back into the state
-    setTodoList(prevTasks => [...prevTasks, retrievedTsk]);
+    // Put the task back into the state
+    setTodoList((prevTasks) => [...prevTasks, retrievedTsk]);
 
     // Clear the permanent deletion timer
     clearTimeout(timeoutRef.current);
     // Reset temporary variables
     deletedTaskRef.current = null;
     setToastMessage("");
-  };
+  }
 
   // Syncs the todoList state to localStorage every time the todoList changes
   useEffect(() => {
@@ -178,7 +183,10 @@ function useTodo() {
     todoCategory,
     isCategoryInput,
     setCategoryData,
-    categoryData
+    categoryData,
+    isOpen,
+    setIsOpen,
+    isEditing,
   };
 }
 

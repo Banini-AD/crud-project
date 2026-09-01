@@ -4,7 +4,7 @@ function TodoSearch({
   setIsSearching,
 }) {
   return (
-    <div >
+    <div className="relative w-full max-w-md">
       <form
         role="search"
         onChange={searchTodo}
@@ -18,11 +18,12 @@ function TodoSearch({
             setSearchResult([]);
           }
         }}
+        className="w-full"
       >
         <input
           type="search"
           name="q"
-          className=" p-2 border"
+          className="min-w-60 p-2.5 px-4 border border-brand-text/10 rounded-xl bg-brand-surface text-brand-text placeholder-brand-text/40 text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent/20 focus:border-brand-accent transition-all"
           placeholder="Search through your tasks"
         />
       </form>
