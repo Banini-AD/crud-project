@@ -29,7 +29,6 @@ function App() {
     isOpen,
     setIsOpen,
     isEditing,
-    setIsEditing,
   } = useTodo();
 
   const [openSideNav, setOpenSideNav] = useState(false);
