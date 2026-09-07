@@ -1,9 +1,10 @@
 import useTodo from "./hooks/useTodo";
 import TodoForm from "./components/TodoForm";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 //import Nav from "./components/Nav";
 import SideNav from "./components/SideNav";
 import Page from "./components/Page";
+import TodoFull from "./components/TodoFull";
 
 function App() {
   const {
@@ -29,17 +30,20 @@ function App() {
     isOpen,
     setIsOpen,
     isEditing,
+    isFullDisplay,
+    setIsFullDisplay,
+    todo,
+    setTodo,
+    openMobileSearch,
+    setOpenMobileSearch
   } = useTodo();
 
   const [openSideNav, setOpenSideNav] = useState(false);
 
-  useEffect(() => {
-    console.log(openSideNav)
-  }, [openSideNav]);
 
   return (
-    <section className="flex relative min-h-screen bg-brand-bg">
-      <SideNav setIsOpen={setIsOpen} openSideNav={openSideNav} setOpenSideNav={setOpenSideNav} />
+    <section className="flex relative min-h-screen bg-brand-bg pt-20">
+      <SideNav setIsOpen={setIsOpen} openSideNav={openSideNav} setOpenSideNav={setOpenSideNav} setOpenMobileSearch={setOpenMobileSearch} />
 
       <Page
         todoList={todoList}
@@ -56,7 +60,16 @@ function App() {
         setSearchResult={setSearchResult}
         setIsOpen={setIsOpen}
         setOpenSideNav={setOpenSideNav}
+        setTodo={setTodo}
+        setIsFullDisplay={setIsFullDisplay}
+        openMobileSearch={openMobileSearch}
+        setOpenMobileSearch={setOpenMobileSearch}
       />
+
+        {isFullDisplay && (
+        <TodoFull todo={todo} setIsFullDisplay={setIsFullDisplay}/>)}
+
+
 
       {isOpen && (
         <TodoForm

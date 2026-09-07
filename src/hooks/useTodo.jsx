@@ -33,8 +33,11 @@ function useTodo() {
     //subTasks: [],
   });
 
+  const [openMobileSearch, setOpenMobileSearch] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const [isFullDisplay, setIsFullDisplay] = useState(false);
+  const [todo, setTodo] = useState({})
 
   const [toastMessage, setToastMessage] = useState("");
   const timeoutRef = useRef(null);
@@ -105,7 +108,7 @@ function useTodo() {
     setTargetID(null);
     setFormData({
       title: "",
-      category: "",
+      category: "No Category",
       startDate: "",
       dueDate: "",
       description: "",
@@ -117,7 +120,13 @@ function useTodo() {
     setIsEditing(true);
     setIsOpen(true);
     setTargetID(tsk.id);
-    setFormData({ title: tsk.title, category: tsk.category, startDate: tsk.startDate, dueDate: tsk.dueDate, description: tsk.description });
+    setFormData({
+      title: tsk.title,
+      category: tsk.category,
+      startDate: tsk.startDate,
+      dueDate: tsk.dueDate,
+      description: tsk.description,
+    });
   }
 
   // Deletes a task from the todoList array
@@ -187,6 +196,12 @@ function useTodo() {
     isOpen,
     setIsOpen,
     isEditing,
+    isFullDisplay,
+    setIsFullDisplay,
+    todo,
+    setTodo,
+    openMobileSearch,
+    setOpenMobileSearch
   };
 }
 

@@ -17,7 +17,7 @@ function TodoForm({
   const [detailsVisible, setDetailsVisible] = useState(false);
 
   return (
-    <section className="absolute w-screen h-screen flex justify-center items-center backdrop-blur-xs bg-brand-bg/50">
+    <section className="fixed w-screen h-screen flex justify-center items-center backdrop-blur-xs bg-brand-bg/50 top-0 left-0 z-50 right-0 bottom-0">
       <div className="flex justify-center flex-col p-5 w-full h-full md:w-1/2 md:h-auto bg-brand-surface/85 relative">
         <button
           className="absolute top-4 right-4 p-1 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100/50 transition-colors"
@@ -44,7 +44,9 @@ function TodoForm({
               value={formData.title}
               onChange={handleChange}
               placeholder="Task Title"
+              maxLength={30}
               id="task"
+              required
             />
           </div>
           <button
@@ -120,6 +122,8 @@ function TodoForm({
                     value={formData.startDate}
                     onChange={handleChange}
                     id="startDate"
+                    maxLength={30}
+                   
                   />
                 </div>
                 <div className="flex flex-col gap-1.5">

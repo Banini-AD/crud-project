@@ -4,7 +4,7 @@ function TodoSearch({
   setIsSearching,
 }) {
   return (
-    <div className="relative w-full max-w-md">
+    <div className="relative w-full max-w-md  flex justify-center items-center">
       <form
         role="search"
         onChange={searchTodo}
@@ -18,7 +18,7 @@ function TodoSearch({
             setSearchResult([]);
           }
         }}
-        className="w-full"
+        className="w-full flex items-center justify-center"
       >
         <input
           type="search"
