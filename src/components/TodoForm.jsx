@@ -16,6 +16,8 @@ function TodoForm({
 }) {
   const [detailsVisible, setDetailsVisible] = useState(false);
 
+  const minDate = new Date().toISOString().split("T");
+
   return (
     <section className="fixed w-screen h-screen flex justify-center items-center backdrop-blur-xs bg-brand-bg/50 top-0 left-0 z-50 right-0 bottom-0">
       <div className="flex justify-center flex-col p-5 w-full h-full md:w-1/2 md:h-auto bg-brand-surface/85 relative">
@@ -120,6 +122,7 @@ function TodoForm({
                     type="date"
                     name="startDate"
                     value={formData.startDate}
+                    min={minDate[0]}
                     onChange={handleChange}
                     id="startDate"
                     maxLength={30}
