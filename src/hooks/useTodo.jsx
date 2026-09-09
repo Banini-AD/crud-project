@@ -191,6 +191,7 @@ function useTodo() {
     addCategory,
     todoCategory,
     isCategoryInput,
+    setIsCategoryInput,
     setCategoryData,
     categoryData,
     isOpen,

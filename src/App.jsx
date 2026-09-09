@@ -25,6 +25,7 @@ function App() {
     addCategory,
     todoCategory,
     isCategoryInput,
+    setIsCategoryInput,
     setCategoryData,
     categoryData,
     isOpen,
@@ -78,6 +79,7 @@ function App() {
           formData={formData}
           addCategory={addCategory}
           isCategoryInput={isCategoryInput}
+          setIsCategoryInput={setIsCategoryInput}
           todoCategory={todoCategory}
           setCategoryData={setCategoryData}
           categoryData={categoryData}

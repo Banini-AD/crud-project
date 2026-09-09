@@ -9,6 +9,7 @@ function TodoForm({
   addCategory,
   todoCategory,
   isCategoryInput,
+  setIsCategoryInput,
   setCategoryData,
   categoryData,
   setIsOpen,
@@ -19,12 +20,12 @@ function TodoForm({
   const minDate = new Date().toISOString().split("T");
 
   return (
-    <section className="fixed w-screen h-screen flex justify-center items-center backdrop-blur-xs bg-brand-bg/50 top-0 left-0 z-50 right-0 bottom-0">
-      <div className="flex justify-center flex-col p-5 w-full h-full md:w-1/2 md:h-auto bg-brand-surface/85 relative">
+    <section className="fixed w-screen h-screen flex justify-center items-center backdrop-blur-xs bg-brand-bg/50 top-0 left-0 z-100 right-0 overflow-y-auto">
+      <div className="flex justify-center flex-col py-10 px-5 w-full h-full md:w-1/2 md:h-auto bg-brand-surface/85 relative">
         <button
           className="absolute top-4 right-4 p-1 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100/50 transition-colors"
           aria-label="Close modal"
-          onClick={() => setIsOpen(false)}
+          onClick={() => {setIsOpen(false); setIsCategoryInput(false)}}
         >
           <IoMdClose className="text-2xl" />
         </button>
@@ -35,7 +36,7 @@ function TodoForm({
           <div className="flex flex-col gap-1.5">
             <label
               htmlFor="task"
-              className="text-sm font-semibold text-gray-700"
+              className="text-sm font-semibold text-brand-text"
             >
               Task Title
             </label>
@@ -169,6 +170,8 @@ function TodoForm({
             type="text"
             id="new-category"
             placeholder="e.g. Work, Shopping..."
+            minLength={3}
+            required
             value={categoryData}
             onChange={(e) => setCategoryData(e.target.value)}
             className="w-full p-2 border border-gray-300 rounded-lg bg-brand-surface focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all text-gray-900 text-sm"
@@ -179,6 +182,13 @@ function TodoForm({
           className="p-2 px-4 bg-gray-800 hover:bg-gray-900 text-white text-sm font-medium rounded-lg h-9.5 transition-colors"
         >
           Create
+        </button>
+        <button 
+          type="button"
+          className="p-2 px-4 bg-red-800 hover:bg-red-600 text-white text-sm font-medium rounded-lg h-9.5 transition-colors"
+          onClick={()=> {setIsCategoryInput(false)}}
+        >
+          Cancel
         </button>
           </form>
         )}
