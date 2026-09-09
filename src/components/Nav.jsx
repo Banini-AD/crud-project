@@ -41,12 +41,6 @@ function Nav({
           JUST<span className="text-brand-accent">DO</span>
         </h1>
 
-        {/*<div className="flex items-center gap-4 flex-row-reverse lg:flex-row justify-between w-full md:w-auto">
-        <button className="p-1.5 rounded-lg hover:bg-brand-text/5 transition-colors md:hidden" aria-label="Open menu" >
-          <IoMenu size={28} className="text-brand-text" onClick={() => setOpenSideNav(true)}/>
-        </button>
-        
-      </div>*/}
 
         {/*Md screen nv sizing */}
         <div className="hidden lg:hidden md:block">
