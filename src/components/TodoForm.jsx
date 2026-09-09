@@ -20,10 +20,10 @@ function TodoForm({
   const minDate = new Date().toISOString().split("T");
 
   return (
-    <section className="fixed w-screen h-screen flex justify-center items-center backdrop-blur-xs bg-brand-bg/50 top-0 left-0 z-100 right-0 overflow-y-auto">
+    <section className="fixed w-screen h-screen flex justify-center items-center backdrop-blur-xs bg-brand-bg/20 top-0 left-0 z-100 right-0 overflow-y-auto scroll-auto">
       <div className="flex justify-center flex-col py-10 px-5 w-full h-full md:w-1/2 md:h-auto bg-brand-surface/85 relative">
         <button
-          className="absolute top-4 right-4 p-1 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100/50 transition-colors"
+          className="absolute top-4 right-4 p-1 rounded-full text-brand-text/80 hover:text-brand-text hover:bg-brand-text/50 transition-colors"
           aria-label="Close modal"
           onClick={() => {setIsOpen(false); setIsCategoryInput(false)}}
         >
@@ -42,7 +42,7 @@ function TodoForm({
             </label>
             <input
               type="text"
-              className="w-full p-2.5 border border-gray-300 rounded-lg bg-brand-surface/50 text-brand-text placeholder:text-brand-text/40 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all"
+              className="w-full p-2.5 border border-brand-text/80 rounded-lg bg-brand-surface/50 text-brand-text placeholder:text-brand-text/40 focus:outline-none focus:ring-2 focus:ring-brand-accent/20 focus:border-brand-accent/80 transition-all"
               name="title"
               value={formData.title}
               onChange={handleChange}
@@ -55,7 +55,7 @@ function TodoForm({
           <button
             type="button"
             onClick={() => setDetailsVisible(!detailsVisible)}
-            className="flex items-center justify-center gap-2 self-start py-1.5 px-3 rounded-md text-sm font-medium text-amber-800 hover:bg-amber-50 transition-colors"
+            className="flex items-center justify-center gap-2 self-start py-1.5 px-3 rounded-md text-sm font-medium text-brand-accent hover:bg-brand-accent/50 transition-colors"
           >
             {detailsVisible ? (
               <>
@@ -69,11 +69,11 @@ function TodoForm({
           </button>
 
           {detailsVisible && (
-            <div className="flex flex-col gap-4 border-t border-gray-100 pt-4 animate-fadeIn">
+            <div className="flex flex-col gap-4 border-t border-brand-text pt-4 animate-fadeIn">
               <div className="flex flex-col gap-1.5">
                 <label
                   htmlFor="category"
-                  className="text-sm font-semibold text-gray-700"
+                  className="text-sm font-semibold text-brand-text"
                 >
                   Category
                 </label>
@@ -82,7 +82,7 @@ function TodoForm({
                   value={formData.category}
                   onChange={handleChange}
                   id="category"
-                  className="w-full p-2.5 border border-gray-300 rounded-lg bg-brand-surface focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all text-brand-text"
+                  className="w-full p-2.5 border border-brand-text/80 rounded-lg bg-brand-surface/50 focus:outline-none focus:ring-2 focus:brand-accent/20 focus:border-brand-accent/80 transition-all text-brand-text"
                 >
                   <option value="No Category">No Category</option>
                   {todoCategory.map((category, index) => (
@@ -92,20 +92,20 @@ function TodoForm({
                   ))}
                   <option
                     value="add_new_option"
-                    className="text-amber-700 font-medium"
+                    className="text-brand-accent font-medium"
                   >
                     + Create New
                   </option>
                 </select>
               </div>
 
-              <label htmlFor="description">Description</label>
+              <label htmlFor="description"  className="text-sm font-semibold text-brand-text">Description</label>
 
               <textarea
                 name="description"
                 value={formData.description}
                 id="description"
-                className="w-full min-h-25 p-2.5 border border-gray-300 rounded-lg bg-brand-surface text-brand-text placeholder:text-brand-text/40focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all resize-vertical font-sans leading-relaxed"
+                className="w-full min-h-25 p-2.5 border border-brand-text/80 rounded-lg bg-brand-surface text-brand-text placeholder:text-brand-text/40 focus:outline-none focus:ring-2 focus:ring-brand-accent/20 focus:border-brand-accent/80  transition-all resize-vertical font-sans leading-relaxed"
                 placeholder="Add task description..."
                 onChange={handleChange}
               ></textarea>
@@ -114,12 +114,12 @@ function TodoForm({
                 <div className="flex flex-col gap-1.5">
                   <label
                     htmlFor="startDate"
-                    className="text-sm font-semibold text-gray-700"
+                     className="text-sm font-semibold text-brand-text"
                   >
                     Start Date
                   </label>
                   <input
-                    className="w-full p-2.5 border border-gray-300 rounded-lg bg-brand-surface focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all text-brand-text"
+                    className="w-full p-2.5 border border-brand-text/80 rounded-lg bg-brand-surface focus:outline-none focus:ring-2 focus:ring-brand-accent/20 focus:border-brand-accent/80 transition-all text-brand-text"
                     type="date"
                     name="startDate"
                     value={formData.startDate}
@@ -133,12 +133,12 @@ function TodoForm({
                 <div className="flex flex-col gap-1.5">
                   <label
                     htmlFor="dueDate"
-                    className="text-sm font-semibold text-brand-text"
+                   className="text-sm font-semibold text-brand-text"
                   >
                     Due Date
                   </label>
                   <input
-                    className="w-full p-2.5 border border-gray-300 rounded-lg bg-brand-surface focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all text-brand-text"
+                    className="w-full p-2.5 border border-brand-text/80 rounded-lg bg-brand-surface focus:outline-none focus:ring-2 focus:ring-brand-accent/20  focus:border-brand-accent/80 transition-all text-brand-text"
                     type="date"
                     name="dueDate"
                     value={formData.dueDate}
@@ -152,7 +152,7 @@ function TodoForm({
 
           <button
             type="submit"
-            className="w-full mt-2 p-3 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg shadow-sm hover:shadow transition-all duration-200"
+            className="w-full mt-2 p-3 bg-brand-accent/90 hover:bg-brand-accent text-white font-semibold rounded-lg shadow-sm hover:shadow transition-all duration-200"
           >
             {isEditing ? "Update Task" : "Add Task"}
           </button>
@@ -198,18 +198,3 @@ function TodoForm({
 }
 
 export default TodoForm;
-
-{
-  /*
-
-        <input type="radio" name="date" id=""  value="1"/><label htmlFor="">Today</label>
-        <input type="radio" name="date" id=""  value="2"/><label htmlFor="">Tomorrow</label>
-        <input type="radio" name="date" id=""  value="3"/><label htmlFor="">Set Date</label>
-        */
-}
-
-{
-  /*<button className="text-amber-800 font-bold">Add Subtask</button>
-        <input type="text" name="subTask" value={formData.subTask} className=" p-2 border"/>
-        <button className="border p-2 bg-yellow-600">Submit</button>*/
-}

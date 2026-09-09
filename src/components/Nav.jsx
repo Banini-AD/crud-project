@@ -2,7 +2,7 @@ import TodoSearch from "./TodoSearch";
 import { IoMenu } from "react-icons/io5";
 import { useState, useEffect } from "react";
 import { LuPlus } from "react-icons/lu";
-import { useOutsideClick } from "./useOutsideClick";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 import { useRef } from "react";
 
 function Nav({
